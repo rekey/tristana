@@ -2,6 +2,7 @@
  * Created by Rekey on 2016/9/11.
  */
 const log4js = require('log4js');
+const loggers = {};
 log4js.configure({
   appenders: [
     {
@@ -18,6 +19,18 @@ log4js.configure({
 });
 module.exports = {
   getLogger: (category) => {
-    return log4js.getLogger(category || '');
+    if (!loggers[category]) {
+      const originLogger = log4js.getLogger(category || '');
+      const logger = {};
+      const methods = ['trace', 'debug', 'info', 'warn', 'error', 'fatal'];
+      methods.forEach((method) => {
+        logger[method] = function () {
+          const args = [].join.call(arguments, '|');
+          originLogger[method](args);
+        };
+      });
+      loggers[category] = logger;
+    }
+    return loggers[category];
   }
 };

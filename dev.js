@@ -7,4 +7,4 @@ const app = require('./app.js');
 require('./middleware/index.js');
 require('./routers/index.js');
 app.listen(3000);
-systemLogger.info(`app listen 3000`);
+systemLogger.info('app', 'start', 'port', 3000);
