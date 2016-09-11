@@ -1,0 +1,10 @@
+{
+  "name": "tristana",
+  "version": "0.0.1",
+  "author": "Rekey",
+  "dependencies": {
+    "co": "^4.6.0",
+    "koa": "^2.0.0-alpha.7",
+    "koa-router": "^5.4.0"
+  }
+}
