@@ -8,12 +8,12 @@ const middlewareLogger = log4js.getLogger('middleware');
 const requestLogger = log4js.getLogger('request');
 
 app.use(co.wrap(function *(ctx, next) {
-  requestLogger.info(ctx.ip, ctx.request.url);
+  requestLogger.info(ctx.ip, ctx.request.url, 'start');
   const start = Date.now();
   yield next();
   const ms = Date.now() - start;
   ctx.set('x-response-time', `${ms}ms`);
-  requestLogger.info(ctx.ip, ctx.request.url, `${ms}ms`);
+  requestLogger.info(ctx.ip, ctx.request.url, ctx.status, `${ms}ms`);
 }));
 
 middlewareLogger.info('response-time', 'start');
